@@ -1,9 +1,6 @@
-import { IParseInput } from '.';
-
-export type InterfacePullerProps = Pick<
-  IParseInput,
-  'interfaceName' | 'interfaceFilePath'
-> & {
+export type InterfacePullerProps = {
+  interfaceFilePath: string;
+  interfaceName: string;
   fileAsStr: string;
 };
 
