@@ -13,7 +13,7 @@ export const typeGuards = {
       return false;
     }
 
-    return Object.keys(recordOfSimpleTypes).some(aSimpleType => {
+    return Object.keys(recordOfSimpleTypes).some((aSimpleType) => {
       return aSimpleType === thingToTest;
     });
   },

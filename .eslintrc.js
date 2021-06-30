@@ -1,9 +1,18 @@
 module.exports = {
   root: true,
-  ignorePatterns: ['dist/*.js', '__fixtures__/**/*.js'],
+  ignorePatterns: [
+    '.eslintrc.js',
+    'dist/**/*',
+    'jest.config.js',
+    '__fixtures__/**/*.js',
+  ],
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint'],
-  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    'prettier',
+  ],
   rules: {
     'no-restricted-syntax': [
       'error',

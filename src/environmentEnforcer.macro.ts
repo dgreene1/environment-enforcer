@@ -4,7 +4,6 @@ import appRoot from 'app-root-path';
 import { createMacro, MacroError, MacroHandler } from 'babel-plugin-macros';
 import fs from 'fs';
 import path from 'path';
-import { inspect } from 'util';
 import { combine } from './arrayHelpers/combine';
 import { getInterfaceName } from './astHelpers/getInterfaceName';
 import { determineFinalConfig, IMacroConfig } from './configReader';
@@ -128,14 +127,8 @@ function throwIfAnyEnvironmentFileDiffersFromInterface(
 
 const handler: MacroHandler = ({
   state,
-  references,
   config: configFromBabelMacroConfigFile,
 }): void => {
-  fs.writeFileSync(
-    path.join('C:', 'dev', 'environment-enforcer', 'testRun.DELETEME.txt'),
-    inspect(references, true, Infinity, true)
-  );
-
   const validatedConfig = determineFinalConfig({
     configFromBabelMacroConfigFile,
   });

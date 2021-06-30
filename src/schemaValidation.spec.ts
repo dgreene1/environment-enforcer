@@ -36,7 +36,7 @@ describe('validate', () => {
     // ASSERT
     expect(errors).toHaveLength(1);
     expect(errors[0]).toContain(
-      `Excess properties not allowed: Could not find a schema for property \"unexpectedProperty\" so please ensure that interface \"IEnvVarsForThisTest\" has that property or remove the property from \"mockFileName.blah\".`
+      `Excess properties not allowed: Could not find a schema for property "unexpectedProperty" so please ensure that interface "IEnvVarsForThisTest" has that property or remove the property from "mockFileName.blah".`
     );
   });
 

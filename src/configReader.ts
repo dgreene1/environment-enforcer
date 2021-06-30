@@ -81,6 +81,7 @@ const getConfigFromFile = (): Partial<IMacroConfig> | undefined => {
   const configFilePath = path.resolve(__dirname, `environmentEnforcer.json`);
 
   if (fs.existsSync(configFilePath)) {
+    // eslint-disable-next-line no-console
     console.log(`Loading ${configFilePath}`);
     const configObj = JSON.parse(fs.readFileSync(configFilePath, 'utf-8'));
     return validateConfigObj({ configObj });
