@@ -1,0 +1,4 @@
+{
+  "foobar": "value of hello for qa",
+  "purposelyUnexpectedProperty": "I put this here on purpose to fail the test"
+}

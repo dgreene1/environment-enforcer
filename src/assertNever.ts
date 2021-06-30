@@ -1,3 +1,7 @@
+import { MacroError } from 'babel-plugin-macros';
+
 export function assertNever(value: never): never {
-  throw new Error(`We do not currently support this: ${JSON.stringify(value)}`);
+  throw new MacroError(
+    `We do not currently support this: ${JSON.stringify(value)}`
+  );
 }
