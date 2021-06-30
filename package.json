@@ -1,0 +1,93 @@
+{
+  "version": "1.1.0",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "keywords": [
+    "macros",
+    "babel",
+    "dotenv",
+    "dot-env",
+    ".env",
+    "environment",
+    "variables",
+    "typescript",
+    "schema",
+    "environment variables",
+    "babel-macros",
+    "babel-plugin-macros"
+  ],
+  "scripts": {
+    "start": "tsdx watch",
+    "type-check": "npm run type-check:business && npm run type-check:fixtures",
+    "type-check:business": "tsc --noEmit",
+    "type-check:fixtures": "tsc --noEmit --project ./__fixtures__/tsconfig.json",
+    "emit-declarations-only": "echo 'Hopefully someday, we can stop emiting the declarations by hand, but until there is a workaround for https://github.com/babel/babel/issues/9668#issuecomment-602221154 then we will will use the emitDeclarationOnly flag of tsc and leave the transpilation to Babel.' && tsc --emitDeclarationOnly --outDir dist",
+    "build": "npm run emit-declarations-only && npm run type-check:business && babel src --out-dir dist --extensions \".ts,.js\"  --ignore '__fixtures__/**/*','**/*.spec.*'",
+    "pretest": "npm run build && npm run type-check:fixtures",
+    "test": "jest --collect-coverage",
+    "lint": "eslint --ext=.tsx,.ts,.js .",
+    "size": "size-limit",
+    "prepare": "husky install"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "name": "environment-enforcer",
+  "author": "Dan Greene",
+  "module": "dist/environment-enforcer.esm.js",
+  "size-limit": [
+    {
+      "path": "dist/environmentEnforcer.macro.js",
+      "limit": "2 KB"
+    }
+  ],
+  "peerDependencies": {
+    "babel-plugin-macros": "^3.0.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.13.10",
+    "@babel/parser": "^7.13.11",
+    "@babel/plugin-proposal-optional-chaining": "^7.13.8",
+    "@babel/plugin-transform-modules-commonjs": "^7.13.8",
+    "@babel/preset-typescript": "^7.13.0",
+    "@size-limit/file": "^5.0.1",
+    "@types/app-root-path": "^1.2.4",
+    "@types/babel-plugin-macros": "^2.8.4",
+    "@types/babel-plugin-tester": "^9.0.2",
+    "@types/jest": "^26.0.20",
+    "@typescript-eslint/eslint-plugin": "^4.17.0",
+    "@typescript-eslint/parser": "^4.17.0",
+    "babel-plugin-macros": "^3.0.1",
+    "babel-plugin-tester": "^10.0.0",
+    "eslint": "^7.22.0",
+    "eslint-config-prettier": "^8.3.0",
+    "husky": "^6.0.0",
+    "jest": "^26.6.3",
+    "prettier": "^2.3.2",
+    "pretty-quick": "^3.1.1",
+    "size-limit": "^4.12.0",
+    "ts-jest": "^26.5.3",
+    "tslib": "^2.1.0",
+    "typescript": "^4.2.3"
+  },
+  "dependencies": {
+    "@babel/core": "^7.13.10",
+    "app-root-path": "^3.0.0"
+  }
+}
