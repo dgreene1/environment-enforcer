@@ -1,17 +1,10 @@
 import { MacroError } from 'babel-plugin-macros';
-import fs from 'fs';
-import path from 'path';
+import { itemsInAThatArenNotInB } from './arrayHelpers/compare';
 
 export interface IMacroConfig {
   environmentsFolderPathRelativeToPackageJSON: string;
   stageNames: string[];
 }
-
-export const itemsInAThatArenNotInB = <T>(arrayA: T[], arrayB: T[]): T[] => {
-  return arrayA.filter((x) => {
-    return !arrayB.includes(x);
-  });
-};
 
 const validateConfigObj = (input: {
   // eslint-disable-next-line @typescript-eslint/ban-types
@@ -77,30 +70,14 @@ const defaultConfig: IMacroConfig = {
   stageNames: ['development', 'qa', 'staging', 'production', 'test'],
 };
 
-const getConfigFromFile = (): Partial<IMacroConfig> | undefined => {
-  const configFilePath = path.resolve(__dirname, `environmentEnforcer.json`);
-
-  if (fs.existsSync(configFilePath)) {
-    // eslint-disable-next-line no-console
-    console.log(`Loading ${configFilePath}`);
-    const configObj = JSON.parse(fs.readFileSync(configFilePath, 'utf-8'));
-    return validateConfigObj({ configObj });
-  } else {
-    return undefined;
-  }
-};
-
 export const determineFinalConfig = (input: {
   configFromBabelMacroConfigFile: Record<string, unknown> | undefined;
 }): IMacroConfig => {
-  return Object.assign(
-    {},
-    defaultConfig,
-    getConfigFromFile(),
-    input.configFromBabelMacroConfigFile
-      ? validateConfigObj({
-          configObj: input.configFromBabelMacroConfigFile,
-        })
-      : undefined
-  );
+  const potentialConfigFile = input.configFromBabelMacroConfigFile
+    ? validateConfigObj({
+        configObj: input.configFromBabelMacroConfigFile,
+      })
+    : undefined;
+
+  return { ...defaultConfig, ...potentialConfigFile };
 };

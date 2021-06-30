@@ -61,7 +61,7 @@ For other examples, please check out the `__fixtures__/successCases` folder in t
 
 ## Setting This Configuration via file
 
-This macro works a lot better if you DO NOT try to configure it, but we allow you to do so if you wish. This is handled by by the standard [babel macro PLUGIN config file](https://github.com/kentcdodds/babel-plugin-macros/blob/main/other/docs/user.md#config) process.
+This macro works a lot better if you DO NOT try to configure it. The defaults are industry standard. But we allow you to change the configuration if you wish. This is handled by the standard [babel macro PLUGIN config file](https://github.com/kentcdodds/babel-plugin-macros/blob/main/other/docs/user.md#config) process which is described below:
 
 1. Place a file called `babel-plugin-macros.config.js` next to the file that uses the environmentEnforcer macro.
 2. The content of this file should look like this:

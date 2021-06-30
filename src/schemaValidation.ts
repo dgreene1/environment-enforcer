@@ -208,7 +208,9 @@ export const validate = (
 
       if (!isOptional) {
         errors.push(
-          `Required property "${propertyNameOnSchema}" was not found on data retrieved from "${fileWhereDataCameFrom}". For your convenience, here is the data: ${data}`
+          `Required property "${propertyNameOnSchema}" was not found on data retrieved from "${fileWhereDataCameFrom}". For your convenience, here is the data: ${JSON.stringify(
+            data
+          )}`
         );
       }
     }

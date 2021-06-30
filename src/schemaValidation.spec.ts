@@ -6,6 +6,37 @@ import { MacroError } from 'babel-plugin-macros';
 import { SchemaForValidations, validate } from './schemaValidation';
 
 describe('validate', () => {
+  it(`should fail if a property is missing`, () => {
+    // ARRANGE
+    const data = {};
+
+    const schema: SchemaForValidations = {
+      interfaceName: 'IEnvVarsForThisTest',
+      schemasPerProperty: {
+        expectedProperty: {
+          isOptional: false,
+          propertyName: 'expectedProperty',
+          typeDef: {
+            variation: 'nonUnionNonIntersection',
+            details: {
+              isArray: false,
+              jsType: 'string',
+            },
+          },
+        },
+      },
+    };
+
+    // ACT
+    const errors = validate(data, schema, 'mockFileName.blah');
+
+    // ASSERT
+    expect(errors).toHaveLength(1);
+    expect(errors[0]).toContain(
+      `Required property "expectedProperty" was not found on data retrieved from "mockFileName.blah". For your convenience, here is the data: {}`
+    );
+  });
+
   it(`should catch excesss properties`, () => {
     // ARRANGE
     const data = {
@@ -142,6 +173,44 @@ describe('validate', () => {
     expect(errors).toHaveLength(1);
     expect(errors[0]).toContain(
       '"myPropName[1]" must have a value of type "number" but instead was "string" and the value of it was "2"'
+    );
+  });
+
+  it(`should fail if the array was not actually an array`, () => {
+    // ARRANGE
+    const data = {
+      myPropName: 'I should have been an array',
+    };
+    const schema: SchemaForValidations = {
+      interfaceName: 'IEnvVarsForThisTest',
+      schemasPerProperty: {
+        myPropName: {
+          isOptional: false,
+          propertyName: 'myPropName',
+          typeDef: {
+            variation: 'nonUnionNonIntersection',
+            details: {
+              isArray: true,
+              jsType: {
+                variation: 'nonUnionNonIntersection',
+                details: {
+                  isArray: false,
+                  jsType: 'number',
+                },
+              },
+            },
+          },
+        },
+      },
+    };
+
+    // ACT
+    const errors = validate(data, schema, 'mockFileName.blah');
+
+    // ASSERT
+    expect(errors).toHaveLength(1);
+    expect(errors[0]).toContain(
+      `"myPropName" was expected to be an array but the value was not. Instead, it was "string" and the value of it was "I should have been an array"`
     );
   });
 
@@ -326,6 +395,49 @@ describe('validate', () => {
     // ASSERT
     expect(error?.message).toContain(
       `This is an internal error of a scenario that we'd hoped would never occur. The internally generated schema has a mismatch in that TOTALLY  DIFFERENT NAME is not equal to maybeNumberOrString for one of the items. It always should be. Please report this on the environment-enforcer github.`
+    );
+  });
+
+  it(`should clarify what things are not supported yet`, () => {
+    // ARRANGE
+    const data = {
+      myPropName: [1, 2],
+    };
+    const schema: SchemaForValidations = {
+      interfaceName: 'IEnvVarsForThisTest',
+      schemasPerProperty: {
+        myPropName: {
+          isOptional: false,
+          propertyName: 'myPropName',
+          typeDef: {
+            variation: 'nonUnionNonIntersection',
+            details: {
+              isArray: true,
+              jsType: {
+                variation:
+                  'some variation we have not had a need for yet' as 'nonUnionNonIntersection',
+                details: {
+                  isArray: false,
+                  jsType: 'number',
+                },
+              },
+            },
+          },
+        },
+      },
+    };
+
+    // ACT
+    let error: MacroError | undefined;
+    try {
+      validate(data, schema, 'mockFileName.blah');
+    } catch (err) {
+      error = err;
+    }
+
+    // ASSERT
+    expect(error?.message).toMatch(
+      /We do not currently support this.*some variation we have not had a need for yet/g
     );
   });
 });
