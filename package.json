@@ -34,7 +34,7 @@
     "pretest": "npm run build && npm run type-check:fixtures",
     "test": "jest --collect-coverage",
     "lint": "eslint --ext=.tsx,.ts,.js .",
-    "size": "npm run build && size-limit",
+    "size": "size-limit",
     "prepare": "husky install"
   },
   "husky": {
