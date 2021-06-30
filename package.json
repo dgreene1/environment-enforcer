@@ -29,7 +29,7 @@
     "type-check": "npm run type-check:business && npm run type-check:fixtures",
     "type-check:business": "tsc --noEmit",
     "type-check:fixtures": "tsc --noEmit --project ./__fixtures__/tsconfig.json",
-    "emit-declarations-only": "echo 'Hopefully someday, we can stop emiting the declarations by hand, but until there is a workaround for https://github.com/babel/babel/issues/9668#issuecomment-602221154 then we will will use tsc's --emitDeclarationOnly and leave the transpilation to Babel.' && tsc --emitDeclarationOnly --outDir dist",
+    "emit-declarations-only": "echo 'Hopefully someday, we can stop emiting the declarations by hand, but until there is a workaround for https://github.com/babel/babel/issues/9668#issuecomment-602221154 then we will will use the emitDeclarationOnly flag of tsc and leave the transpilation to Babel.' && tsc --emitDeclarationOnly --outDir dist",
     "build": "npm run emit-declarations-only && npm run type-check:business && babel src --out-dir dist --extensions \".ts,.js\"  --ignore '__fixtures__/**/*','**/*.spec.*'",
     "pretest": "npm run build && npm run type-check:fixtures",
     "test": "jest --collect-coverage",
