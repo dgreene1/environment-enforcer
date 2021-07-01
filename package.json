@@ -36,6 +36,7 @@
     "lint": "eslint --ext=.tsx,.ts,.js .",
     "size": "size-limit",
     "prepare": "husky install",
+    "prepack": "npm run build",
     "semantic-release": "semantic-release"
   },
   "husky": {
