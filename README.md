@@ -76,4 +76,4 @@ module.exports = {
 
 # Contributions
 
-Contributions welcome as long as they come with strong automated test coverage.
+Contributions welcome as long as they come with strong automated test coverage and use [conventional commit](https://www.conventionalcommits.org/) messages.
