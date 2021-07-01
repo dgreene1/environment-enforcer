@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "0.0.0-development",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -35,7 +35,8 @@
     "test": "jest --collect-coverage",
     "lint": "eslint --ext=.tsx,.ts,.js .",
     "size": "size-limit",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "semantic-release": "semantic-release"
   },
   "husky": {
     "hooks": {
@@ -66,6 +67,8 @@
     "@babel/plugin-proposal-optional-chaining": "^7.13.8",
     "@babel/plugin-transform-modules-commonjs": "^7.13.8",
     "@babel/preset-typescript": "^7.13.0",
+    "@commitlint/cli": "^12.1.4",
+    "@commitlint/config-conventional": "^12.1.4",
     "@size-limit/file": "^5.0.1",
     "@types/app-root-path": "^1.2.4",
     "@types/babel-plugin-macros": "^2.8.4",
@@ -81,6 +84,7 @@
     "jest": "^26.6.3",
     "prettier": "^2.3.2",
     "pretty-quick": "^3.1.1",
+    "semantic-release": "^17.4.4",
     "size-limit": "^4.12.0",
     "ts-jest": "^26.5.3",
     "tslib": "^2.1.0",
@@ -89,5 +93,9 @@
   "dependencies": {
     "@babel/core": "^7.13.10",
     "app-root-path": "^3.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dgreene1/environment-enforcer.git"
   }
 }
