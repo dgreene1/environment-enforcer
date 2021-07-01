@@ -5,6 +5,7 @@ module.exports = {
     'dist/**/*',
     'jest.config.js',
     '__fixtures__/**/*.js',
+    'commitlint.config.js',
   ],
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint'],
