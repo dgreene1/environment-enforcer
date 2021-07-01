@@ -6,8 +6,9 @@ _"When you want your code to work in every environment, call on the Environment 
 
 ## Usage / Examples
 
-1. Create a single file that will provide your code access to your environment files. Let's call it `environmentVariables.ts`
-2. Import this macro and pass it the interface that defines all of the environment variables you require to be present at runtime.
+1. run `npm install environment-enforcer`
+2. Create a single file that will provide your code access to your environment files. Let's call it `environmentVariables.ts`
+3. Import this macro and pass it the interface that defines all of the environment variables you require to be present at runtime.
 
 ```ts
 // inside src/environmentVariables.ts
@@ -20,8 +21,8 @@ interface IExample {
 export const envVars = EnvironmentEnforcer.parse<IExample>();
 ```
 
-3. create a folder called `environments` (or see Configuration below for other options) and place it at the level of `package.json`
-4. create files within this folder that match your environments. For example, if you don't change the default `stageNames` value, you would want to have 5 files in this folder. So:
+4. create a folder called `environments` (or see Configuration below for other options) and place it at the level of `package.json`
+5. create files within this folder that match your environments. For example, if you don't change the default `stageNames` value, you would want to have 5 files in this folder. So:
 
 ```
 package.json
@@ -34,7 +35,7 @@ environments/production.json
 node_modules/
 ```
 
-5. The content of each of these files must adhere to the interface you passed into the macro in the step above. So for example, `environments/development.json` would be:
+6. The content of each of these files must adhere to the interface you passed into the macro in the step above. So for example, `environments/development.json` would be:
 
 ```json
 {
@@ -42,7 +43,7 @@ node_modules/
 }
 ```
 
-6. EnvironmentEnforcer will make sure that all of your promotions have the expected variables and that your promotions are without fear! :)
+7. EnvironmentEnforcer will make sure that all of your promotions have the expected variables and that your promotions are without fear! :)
 
 ### Other Examples
 
