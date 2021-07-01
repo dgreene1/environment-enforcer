@@ -11,7 +11,7 @@ _"When you want your code to work in every environment, call on the Environment 
 3. Import this macro and pass it the interface that defines all of the environment variables you require to be present at runtime.
 
 ```ts
-// inside src/environmentVariables.ts
+// inside src/wrappedEnvVars.ts
 import EnvironmentEnforcer from 'environmentEnforcer.macro';
 
 interface IExample {
