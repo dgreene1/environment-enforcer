@@ -6,13 +6,13 @@ _"When you want your code to work in every environment, call on the Environment 
 
 ## Usage / Examples
 
-1. run `npm install environment-enforcer`
+1. run `npm install environment-enforcer.macro`
 2. Create a single file that will provide your code access to your environment files. Let's call it `wrappedEnvVars.ts`
 3. Import this macro and pass it the interface that defines all of the environment variables you require to be present at runtime.
 
 ```ts
 // inside src/wrappedEnvVars.ts
-import EnvironmentEnforcer from 'environmentEnforcer.macro';
+import EnvironmentEnforcer from 'environment-enforcer.macro';
 
 interface IExample {
   MY_API_URL: string;

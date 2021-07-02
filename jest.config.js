@@ -15,7 +15,7 @@ module.exports = {
     'src/**/*.{js,ts,jsx,tsx}',
     '!**/node_modules/**',
     // You can't get code coverage environmentEnforcer.macro.ts since babel-plugin-tester doesn't do that and that's where we test this end-to-end. We get unit level coverage elsewhere though
-    '!src/environmentEnforcer.macro.ts',
+    '!src/index.macro.ts',
     '!**/__fixtures__/**',
     '!**/dist/**',
   ],

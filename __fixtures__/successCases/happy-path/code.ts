@@ -1,4 +1,4 @@
-import EnvironmentEnforcer from '../../../dist/environmentEnforcer.macro';
+import EnvironmentEnforcer from '../../../dist/index.macro';
 
 interface IExample {
   singleStr: string;

@@ -1,8 +1,10 @@
 {
   "version": "0.0.0-development",
   "license": "MIT",
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "name": "environment-enforcer.macro",
+  "author": "Dan Greene",
+  "main": "dist/index.macro.js",
+  "typings": "dist/index.macro.d.ts",
   "files": [
     "dist",
     "src"
@@ -31,7 +33,7 @@
     "type-check:fixtures": "tsc --noEmit --project ./__fixtures__/tsconfig.json",
     "emit-declarations-only": "echo 'Hopefully someday, we can stop emiting the declarations by hand, but until there is a workaround for https://github.com/babel/babel/issues/9668#issuecomment-602221154 then we will will use the emitDeclarationOnly flag of tsc and leave the transpilation to Babel.' && tsc --emitDeclarationOnly --outDir dist",
     "build": "npm run emit-declarations-only && npm run type-check:business && babel src --out-dir dist --extensions \".ts,.js\"  --ignore '__fixtures__/**/*','**/*.spec.*'",
-    "pretest": "npm run build && npm run type-check:fixtures",
+    "pretest": "rimraf dist && npm run build && npm run type-check:fixtures",
     "test": "jest --collect-coverage",
     "lint": "eslint --ext=.tsx,.ts,.js .",
     "size": "size-limit",
@@ -50,12 +52,9 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "environment-enforcer",
-  "author": "Dan Greene",
-  "module": "dist/environment-enforcer.esm.js",
   "size-limit": [
     {
-      "path": "dist/environmentEnforcer.macro.js",
+      "path": "dist/index.macro.js",
       "limit": "2 KB"
     }
   ],
@@ -85,6 +84,7 @@
     "jest": "^26.6.3",
     "prettier": "^2.3.2",
     "pretty-quick": "^3.1.1",
+    "rimraf": "^3.0.2",
     "semantic-release": "^17.4.4",
     "size-limit": "^4.12.0",
     "ts-jest": "^26.5.3",
