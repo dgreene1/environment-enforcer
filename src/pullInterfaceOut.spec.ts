@@ -3,7 +3,7 @@ import { pluckInterfaceFromFile } from './pullInterfaceOut';
 describe('pluckInterfaceFromFile', () => {
   it('should return only the interface name and definition and nothing around it', () => {
     // ARRANGE
-    const fileAsStr = `import EnvironmentEnforcer from '../../dist/environmentEnforcer.macro';
+    const fileAsStr = `import EnvironmentEnforcer from '../../dist/environment-enforcer/macro';
 
     interface IExample {
       hello: string;
