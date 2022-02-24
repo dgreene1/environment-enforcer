@@ -7,8 +7,9 @@ _"When you want your code to work in every environment, call on the Environment 
 ## Usage / Examples
 
 1. run `npm install environment-enforcer.macro`
-2. Create a single file that will provide your code access to your environment files. Let's call it `wrappedEnvVars.ts`
-3. Import this macro and pass it the interface that defines all of the environment variables you require to be present at runtime.
+2. follow the [babel macro usage guide](https://github.com/kentcdodds/babel-plugin-macros/blob/main/other/docs/user.md) if you haven't already set up babel to use macros.
+3. Create a single file that will provide your code access to your environment files. Let's call it `wrappedEnvVars.ts`
+4. Import this macro and pass it the interface that defines all of the environment variables you require to be present at runtime.
 
 ```ts
 // inside src/wrappedEnvVars.ts
@@ -48,6 +49,8 @@ node_modules/
 ### Other Examples
 
 For other examples, please check out the `__fixtures__/successCases` folder in this repo for our integration tests that show working examples.
+
+Additionally, there is a working example in a Create React App that you can try at: https://github.com/dgreene1/environment-enforcer-test-repo
 
 ## Configuration
 
