@@ -33,3 +33,24 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      - name: Prepare End To End test with Create React App
+        run: |
+          - name: Create symlink for vtx-react-scripts
+        run: |
+          npm link
+          npx create-react-app my-app --template typescript
+          cd my-app
+          npm link environment-enforcer.macro
+          npx ts-node ../e2eRunner/createTestCase.ts
+          npm run start
+      - name: Run End To End Cypress tests
+        uses: cypress-io/github-action@v2
+        with:
+          working-directory: "${{ env.MFE_NAME }}/cypress"
+          wait-on: "https://localhost:9001/${{ env.MFE_NAME }}.js"
+          start: npm run start:${{ env.NODE_ENV }}
+          command: npm run cypress:run:e2e:${{ env.NODE_ENV }}
+          install: false
+        env:
+          NODE_TLS_REJECT_UNAUTHORIZED: 0

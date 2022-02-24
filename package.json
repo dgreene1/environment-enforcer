@@ -78,6 +78,7 @@
     "@typescript-eslint/parser": "^4.17.0",
     "babel-plugin-macros": "^3.1.0",
     "babel-plugin-tester": "^10.0.0",
+    "cypress": "^7.6.0",
     "eslint": "^7.22.0",
     "eslint-config-prettier": "^8.3.0",
     "husky": "^6.0.0",
@@ -88,6 +89,7 @@
     "semantic-release": "^17.4.4",
     "size-limit": "^4.12.0",
     "ts-jest": "^26.5.3",
+    "ts-node": "^10.0.0",
     "tslib": "^2.1.0",
     "typescript": "^4.2.3"
   },
