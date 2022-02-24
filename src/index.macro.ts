@@ -16,6 +16,8 @@ export interface EnvironmentEnforcer {
   parse: <T>() => T;
 }
 
+const MACRO_FN_NAME: keyof EnvironmentEnforcer = 'parse';
+
 const constructEnvFilePath = (input: {
   config: IMacroConfig;
   stageName: string;
@@ -125,6 +127,18 @@ function throwIfAnyEnvironmentFileDiffersFromInterface(
   }
 }
 
+const NAME_OF_THIS_MACRO_INCLUDE = 'environment-enforcer.macro';
+const FAKE_IMPORT_NAME_FOR_TESTING = 'dist/index.macro';
+
+const appendWithFullFileContent = (state: PluginPass) => {
+  return `
+  
+  File path: ${state.filename}
+
+  Full text of file:
+  ${state.file.code}`;
+};
+
 const handler: MacroHandler = ({
   state,
   config: configFromBabelMacroConfigFile,
@@ -133,23 +147,40 @@ const handler: MacroHandler = ({
     configFromBabelMacroConfigFile,
   });
 
+  if (
+    !state.file.code.includes(NAME_OF_THIS_MACRO_INCLUDE) &&
+    !state.file.code.includes(FAKE_IMPORT_NAME_FOR_TESTING)
+  ) {
+    throw new MacroError(
+      `Expected to find ${NAME_OF_THIS_MACRO_INCLUDE} (or ${FAKE_IMPORT_NAME_FOR_TESTING} (which is less likely due to its use primarily in internal development)); however we did not.${appendWithFullFileContent(
+        state
+      )}`
+    );
+  }
+
   state.file.path.traverse({
     CallExpression: (p) => {
       // console.warn(p); // Uncomment if you want to see the AST to aid development
+
+      if (p.node.callee.type !== 'MemberExpression') return;
+      if (p.node.callee.property.type !== 'Identifier') return;
+      if (p.node.callee.property.name !== MACRO_FN_NAME) return;
 
       if (!p.node.typeParameters) {
         throw new MacroError(
           `This macro requires you to explicitly pass the type parameter for the interface that defines the contract for which each environment variable file must adhere to.
           However, we did not find a type parameter for this node: ${JSON.stringify(
             p.node
-          )}"`
+          )}${appendWithFullFileContent(state)}`
         );
       }
 
       p.node.typeParameters.params.forEach((typeParam) => {
         if (typeParam.type !== 'TSTypeReference') {
           throw new MacroError(
-            `This macro requires that the type parameter be an interface`
+            `This macro requires that the type parameter be an interface.${appendWithFullFileContent(
+              state
+            )}`
           );
         }
 
